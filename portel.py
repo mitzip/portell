@@ -1,18 +1,33 @@
-#!python
+#!/usr/bin/env python
+
+"""
+portell: tell on ports when a connection is made to them
+
+Uses https://github.com/alloy/terminal-notifier for
+notifications in OSX 10.8
+
+@author: mitzip
+@contact: http://github.com/mitzip/portell
+@license: Public Domain
+@version: 1.0.0
+"""
+
 from subprocess import call, check_output
 from time import sleep
 from os import getpid
+from os.path import expanduser
+from distutils.spawn import find_executable
 
 # Set of (protocol, local port) tuples.
 watched = {('tcp4', 5900)}
 sleep_time = 5  # sleep time between checks in seconds
-applications = '/Users/davidmitchel/Applications'
+applications = ''.join([expanduser('~'),'/Applications'])
 notifier = '/terminal-notifier.app/Contents/MacOS/terminal-notifier'
 
 while True:
     # Check if any of the watched services is running.
     netstat = check_output(
-        ['/usr/sbin/netstat', '-p', 'tcp', '-n'],
+        [find_executable('netstat'), '-p', 'tcp', '-n'],
         universal_newlines=True).split('\n')
 
     for line in netstat[2:-1]:
