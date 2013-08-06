@@ -18,6 +18,7 @@ from os import getpid
 from os.path import expanduser
 from distutils.spawn import find_executable
 import logging
+import netstat
 
 logger = logging.getLogger()
 hdlr = logging.FileHandler('portell.log')
