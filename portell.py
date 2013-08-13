@@ -44,6 +44,7 @@ while True:
         port = int(items[3].split('.')[-1])
         if (proto, port) in watched:
             logger.warning(line)
+            print line
             # found = "Found {} connection from {} to port {}"
             #   .format(proto, items[4], port)
             found = "You've got mail!"
